@@ -223,6 +223,28 @@ python bot.py
 
 ---
 
+#### Option C: AWS EC2 (24/7)
+
+The bot uses long polling and SQLite, so it runs as a single always-on EC2 instance (no inbound ports needed besides SSH).
+
+1. Launch an **Ubuntu 24.04** instance (`t3.micro` is enough) with a 16 GB gp3 volume, a security group allowing SSH only from your IP, and paste [`deploy/ec2-user-data.sh`](deploy/ec2-user-data.sh) as **User data**. It installs Docker, adds swap, and clones this repo to `/opt/telegram-bot`.
+2. Copy your secrets and start the bot:
+
+```bash
+scp .env ubuntu@<EC2_PUBLIC_IP>:/opt/telegram-bot/.env
+ssh ubuntu@<EC2_PUBLIC_IP> "chmod 600 /opt/telegram-bot/.env && cd /opt/telegram-bot && docker compose up -d --build"
+```
+
+3. Deploy updates after pushing to GitHub:
+
+```bash
+ssh ubuntu@<EC2_PUBLIC_IP> /opt/telegram-bot/deploy/update.sh
+```
+
+> Only one instance may poll Telegram per bot token. Stop any local `python bot.py` before starting the server copy, or both will hit `409 Conflict`.
+
+---
+
 ## 📖 Command Reference & Usage Examples
 
 ### 1. Document Summarization & Data Ingestion
