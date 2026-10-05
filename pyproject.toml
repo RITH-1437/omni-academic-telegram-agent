@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "telegram-year5-bot"
+version = "1.0.0"
+description = "Production-grade asynchronous Telegram Supergroup Bot tailored for Year 5 CS/IT university courses"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Year 5 IT Systems Architect" }
+]
+dependencies = [
+    "python-telegram-bot[job-queue]>=21.0",
+    "google-genai>=1.0.0",
+    "aiosqlite>=0.20.0",
+    "pypdf>=5.0.0",
+    "python-docx>=1.1.0",
+    "python-pptx>=1.0.0",
+    "openpyxl>=3.1.5",
+    "httpx>=0.28.0",
+    "python-dotenv>=1.0.1",
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.2.0",
+    "dateparser>=1.2.0",
+    "pytz>=2024.1"
+]
